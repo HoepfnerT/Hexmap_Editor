@@ -53,6 +53,8 @@ class Map_Handler():
     def get_scale(self):                return self.scale
 
 
+
+
     # return corners of the polygon centered at x,y
     def hexshape(self, x, y):
         offset, v = Vector2(x, y), Vector2(0,-self.scale)

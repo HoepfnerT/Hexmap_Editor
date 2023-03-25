@@ -18,9 +18,11 @@ class Selection_Tile():
     def get(self):                              return (self.active, self.coords)
     def get_radius(self):                       return self.radius
     def get_hex_coords(self):      
+        yield self.coords.get_hex_coords()
         for r in range(self.radius+1):
             for u in range(r):
                 for v in range(r): 
+                    if u == 0 and v == 0: continue
                     yield (self.coords + HexCoords(u,-v)).get_hex_coords()
                     yield (self.coords + HexCoords(-u,v)).get_hex_coords()
                 for w in range(1,u): 
