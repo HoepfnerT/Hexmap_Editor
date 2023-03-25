@@ -3,7 +3,7 @@ import pygame
 
 GAME_MOUSE_DOWN_FLAG = False
 
-def handle_event(event, MAP_HANDLER, GAME_RECT, DISPLAY_RECT):
+def handle_event(event, MAP_HANDLER, GAME_RECT):
     if event.type == pygame.KEYDOWN:
         # save map with return
         if event.key == pygame.K_RETURN:    MAP_HANDLER.save_map_to_file()

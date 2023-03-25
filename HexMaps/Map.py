@@ -14,15 +14,14 @@ class Map:
         except IndexError:                  return 0
 
     def save_to_file(self, filename = "map.data"):
-        with open(filename, 'wb') as f: pickle.dump([self.top, self.left, self.map], f)
+        with open(f"maps/{filename}", 'wb') as f: pickle.dump([self.top, self.left, self.map], f)
 
     def load_from_file(self, filename = "map.data"):
-        with open(filename, 'rb') as f: self.top, self.left, self.map = pickle.load(f)
+        with open(f"maps/{filename}", 'rb') as f: self.top, self.left, self.map = pickle.load(f)
 
     def set_empty(self):    self.top, self.left, self.map = 0,0,[[0]]
 
     def set_tile(self, u,v, val):
-        print(self.map)
         x, y = u + v//2, v
         while x < self.left:
             for row in self.map:

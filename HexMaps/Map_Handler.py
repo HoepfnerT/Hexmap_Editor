@@ -8,12 +8,12 @@ class Map_Handler():
     Keep track of information of the map, including
     Offset, Scaling, two selected squares.
     """
-    def __init__(self, map = Map(), offset = HexCoords(0,0), scale = 20, main_select = Selection_Tile(), off_select = Selection_Tile()):
+    def __init__(self, map = Map(), offset = HexCoords(0,0), scale = 20, main_select = Selection_Tile(), secondary_select = Selection_Tile()):
         self.MAP    = map
         self.offset = offset
         self.scale  = scale
-        self.main_select, self.off_select = main_select, off_select
-        self.selects = [self.main_select, self.off_select]
+        self.main_select, self.secondary_select = main_select, secondary_select
+        self.selects = [self.main_select, self.secondary_select]
         self.key_to_tile = {i: i for i in range(10)}
         
 
@@ -21,8 +21,8 @@ class Map_Handler():
         self.MAP    = Map()
         self.offset = HexCoords(0,0)
         self.scale  = 20
-        self.main_select, self.off_select = Selection_Tile(), Selection_Tile()
-        self.selects = [self.main_select, self.off_select] 
+        self.main_select, self.secondary_select = Selection_Tile(), Selection_Tile()
+        self.selects = [self.main_select, self.secondary_select] 
         
     def change_key_to_tile(self, key, tile):
         try: self.key_to_tile[key] = tile
@@ -41,14 +41,14 @@ class Map_Handler():
     def shift_offset(self, u,v): self.offset += (u,v)
     
     # Get if tiles selected 
-    def get_select(self, off=0):        return self.selects[off].is_active()
+    def get_select(self, secondary=0):        return self.selects[secondary].is_active()
     # Get selected tiles screen coordinates
-    def get_select_coords(self, off=0): 
-        for hex in self.selects[off].get_hex_tile():
+    def get_select_coords(self, secondary=0): 
+        for hex in self.selects[secondary].get_hex_tile():
             yield self.hex_to_screen_coords(*hex)
-    def get_select_tile(self, off=0):   return self.selects[off].get_hex_tile()
-    def increase_selection_radius(self, inc, off = 0):
-        self.selects[off].increase_radius(inc)
+    def get_select_tile(self, secondary=0):   return self.selects[secondary].get_hex_tile()
+    def increase_selection_radius(self, inc, secondary = 0):
+        self.selects[secondary].increase_radius(inc)
     # get scaling factor
     def get_scale(self):                return self.scale
 
@@ -59,8 +59,9 @@ class Map_Handler():
         return [ v.rotate(d) + offset for d in range(0,361,60) ]
     # return for all visible hexes content and shape on screen as (content, [list of corners]) 
     def get_visible_hexes(self, width, height):
-        for tile, pos in self.MAP.get_visible_hexes(width/self.scale, height/self.scale, top_left = self.offset.get_hex_tile()): 
-            yield (tile, self.hex_to_screen_coords(*pos), self.scale)
+        for tile_id, pos in self.MAP.get_visible_hexes(width/self.scale, height/self.scale, top_left = self.offset.get_hex_tile()): 
+            yield (tile_id, self.hex_to_screen_coords(*pos), self.scale)
+
 
     # change scaling factor, keep focus on focus point
     def change_scale(self, incr, focus):     
