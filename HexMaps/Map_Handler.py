@@ -18,7 +18,7 @@ class Map_Handler():
         
 
     def new_map(self): 
-        self.MAP    = Map()
+        self.MAP.set_empty()
         self.offset = HexCoords(0,0)
         self.scale  = 20
         self.main_select, self.secondary_select = Selection_Tile(), Selection_Tile()

@@ -5,7 +5,7 @@ class Map:
     Stores the map as a 2D-Array and can yield all visible tiles.
     """
 
-    def __init__(self, map = [], top=0, left=0):
+    def __init__(self, map = [[0 for i in range(21)] for j in range(21)], top=-10, left=-10):
         self.top, self.left, self.map = top, left, map
     def set_map(self, map): self.map = map
     def get(self,x,y):
@@ -19,25 +19,21 @@ class Map:
     def load_from_file(self, filename = "map.data"):
         with open(f"maps/{filename}", 'rb') as f: self.top, self.left, self.map = pickle.load(f)
 
-    def set_empty(self):    self.top, self.left, self.map = 0,0,[[0]]
+    def set_empty(self):    self.top, self.left, self.map = -10,10,[[0 for i in range(21)] for j in range(21)]
 
     def set_tile(self, u,v, val):
         x, y = u + v//2, v
         while x < self.left:
             for row in self.map:
-                print(1)
                 row.insert(0,0)
             self.left -= 1
         while x-self.left >= len(self.map[0]):
             for row in self.map:
-                print(2)
                 row.append(0)
         while y < self.top:
-            print(3)
             self.map.insert(0, [0 for x in self.map[0]])
             self.top -= 1
-        while y - self.top >= len(self.map):        
-            print(4)
+        while y - self.top >= len(self.map):    
             self.map.append([0 for x in self.map[0]])
         self.map[y - self.top][x - self.left] = val
 

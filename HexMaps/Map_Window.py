@@ -66,6 +66,9 @@ class Map_Window:
                 self.TILES_DICT[key] = pygame.transform.scale(pygame.image.load(f"hex_tiles/{key}.png").convert_alpha(), self.RESCALE_IMG(scale))
         self.TILES_DICT_SCALE = scale
 
+    def clear(self):
+        self.DISPLAY.fill((255,255,255))
+
     def draw_map(self):
         # reset background
         pygame.draw.rect(self.DISPLAY, self.BLACK, self.WINDOW_RECT)

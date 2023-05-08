@@ -25,6 +25,7 @@ def main_loop():
         for event in pygame.event.get(): 
             if event.type == pygame.VIDEORESIZE: MAP_WINDOW.on_resize()
             else: handle_event(event)
+        MAP_WINDOW.clear()
         MAP_WINDOW.draw()
         pygame.display.update()
         CLOCK.tick(MAP_FPS)
@@ -32,7 +33,7 @@ def main_loop():
 
 if __name__ == "__main__":
     GAME_IS_RUNNING                 = True
-    MAP_FPS                         = 5
+    MAP_FPS                         = 10
     MAP_HANDLER                     = Map_Handler()
     CLOCK                           = pygame.time.Clock()
 
