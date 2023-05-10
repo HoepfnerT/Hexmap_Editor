@@ -14,6 +14,7 @@ Keybinds:
 - The content of the tile(s) selected can be changed using the "1"-"0" number keys. Which number corresponds to which tile can be seen and changed in the "Hexmap Tools" window.
 
 Additional Tiles:
+- The included tiles are from the user DarthAsparagus und DeviantArt (https://www.deviantart.com/darthasparagus/art/Hexploitation-Hexes-538044225), small changes to colors made 
 - Additional tiles can be added by adding them as "png"-files named with a number as name, "#.png".
 
 Saving/Loading Maps:
